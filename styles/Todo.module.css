@@ -1,0 +1,45 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* center items vertically, in this case */
+  align-items: center;     /* center items horizontally, in this case */
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.listName {
+  width: 100%;
+  padding: 10px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: white;
+  overflow: scroll;
+}
+
+.listItem {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.listItemText{
+  color: black;
+  word-break: break-all;
+  white-space: normal;
+}
