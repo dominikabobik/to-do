@@ -4,6 +4,7 @@ import Image from 'next/image'
 import TopBar from '../components/top-bar'
 import styles from '../styles/Home.module.css'
 
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -19,3 +20,13 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+export async function getServerSideProps() {
+  let res = await fetch('https//:localhost:3000/api/lists')
+  let data = await res.json()
+  return {
+    props:{
+      lists: data['message']
+    }
+  }
+}
