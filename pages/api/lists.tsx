@@ -25,17 +25,19 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 async function getLists(req: NextApiRequest, res:NextApiResponse) {
     try {
         let { db } = await connectToDatabase();
-        let lists = await db
-          .collection('lists')
-          .find({})
-          .toArray();
+      let lists = await db
+        .collection('lists')
+        .find({})
+        .toArray();      
       
-        res.status(200).send(lists);
-      
-        return res.json(
-            JSON.parse(JSON.stringify(lists))
-        );
-        
+      console.log(lists)
+      return res.status(200).json(lists)
+      /*
+        return res.json({
+            message: JSON.parse(JSON.stringify(lists)),
+            success: true,
+        });
+      */
     } catch (error:any) {
         return res.json({
             message: new Error(error).message,

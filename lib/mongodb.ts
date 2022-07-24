@@ -1,8 +1,10 @@
-import { Db, MongoClient } from "mongodb";
 require('dotenv').config();
+import { Db, MongoClient } from "mongodb";
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const MONGODB_DB = process.env.MONGODB_DB;
+const MONGODB_URI = "mongodb+srv://domi:1234@cluster0.pqjyg.mongodb.net/?retryWrites=true&w=majority"
+const MONGODB_DB = "todoDB"
+//const MONGODB_URI = process.env.MONGODB_URI;
+//const MONGODB_DB = process.env.MONGODB_DB;
 
 let cachedClient: MongoClient;
 let cachedDb: Db;
