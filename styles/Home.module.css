@@ -1,24 +1,119 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;     /* center items horizontally, in this case */
+  align-items: center;
   height: 100vh;
   min-height: 350px;
-  margin-top: 20%;
-}
-
-.newButton {
-  background-color: #464655;
-  border-radius: 30px;
-  border: 1px solid #464655;
-  height: 10%;
-  width: 80%;
-  color: #b7b6c1;
-  font-weight: bold;
-  max-width: 300px;
+  margin-top: 10%;
 }
 
 .listContainer {
   flex-direction: row;
   flex-wrap: wrap;
+  height: 100%;
+  overflow: scroll;
+}
+
+.wrapper {
+  border: 1px solid black;
+  width: 50%;
+  height: 80%;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+}
+
+.newListName {
+  height: 50px;
+  flex: 1;
+  padding: 0.5em;
+  font-size: 20px;
+}
+
+.newListName:focus {
+  outline: none !important;
+  border:1px solid grey;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.newListButton {
+  background-color: lightblue;
+  border-radius: 10px;
+  border: 1px solid #464655;
+  font-weight: bold;
+  max-width: 200px;
+  align-self: center;
+  width: 10%;
+  height: 50px;
+  margin-left: auto;
+  transition: all 230ms;
+}
+
+.newListButton:hover {
+  transform: scale(1.1);
+}
+
+
+.listItem {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  gap: 10px;
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.listItemText {
+  color: black;
+  word-break: break-all;
+  white-space: normal;
+  padding: 0.5em;
+  overflow: hidden;
+  resize: none;
+  border: none;
+}
+
+.listItemText:focus {
+    outline: none !important;
+    border:1px solid greenyellow;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.topWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  gap: 1em;
+}
+
+.deleteButton {
+  height: 20px;
+  align-self: center;
+  margin-left: auto;
+  background-color: white;
+  border: none;
+}
+
+.deleteButton:hover {
+  transform: scale(1.1);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  background-color: white;
+  overflow: scroll;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }

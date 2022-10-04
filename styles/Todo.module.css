@@ -1,25 +1,38 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center items vertically, in this case */
-  align-items: center;     /* center items horizontally, in this case */
+  justify-content: center;
+  align-items: center;
   height: 100vh;
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  width: 80%;
   height: 80%;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 10px;
+  min-width: 200px;
 }
 
 .listName {
-  width: 100%;
-  padding: 10px;
+  color: black;
+  word-break: break-all;
+  white-space: normal;
+  padding: 0.5em;
+  overflow: hidden;
+  resize: none;
+  border: none;
+  margin: 0.5em;
 }
+
+.listName:focus {
+    outline: none !important;
+    border:1px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+ }
 
 .list {
   display: flex;
@@ -27,6 +40,7 @@
   padding: 0;
   background-color: white;
   overflow: scroll;
+  width: 100%;
 }
 
 .listItem {
@@ -38,8 +52,71 @@
   border-bottom: 1px solid #ddd;
 }
 
-.listItemText{
+.listItemText {
   color: black;
   word-break: break-all;
   white-space: normal;
+  padding: 0.5em;
+  overflow: hidden;
+  resize: none;
+  border: none;
+}
+
+.listItemText:focus {
+    outline: none !important;
+    border:1px solid greenyellow;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.topWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.listItemButton {
+  height: 20px;
+  width: 20px;
+  min-width: 20px;
+  border: 1px solid black;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.isListItemChecked .listItemButton{
+  border: 1px solid white;
+  background-color: black;
+  opacity: 50%;
+  border: none;
+}
+
+.isListItemTextChecked{
+  text-decoration:line-through;
+  opacity: 50%;
+}
+
+.isListItemTextChecked:focus {
+    outline: none !important;
+    border:1px solid grey;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.deleteButton {
+  height: 20px;
+  align-self: center;
+  background-color: white;
+  border: none;
+}
+
+.deleteButton:hover {
+  transform: scale(1.1);
+}
+
+.addButton {
+  min-height: 30px;
+  min-width: 30px;
 }
