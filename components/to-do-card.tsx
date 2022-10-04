@@ -4,12 +4,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 import { IconContext } from 'react-icons';
 import TextareaAutosize from 'react-textarea-autosize';
 
-export interface Item {
-  title: string,
-  data: ListItemProps[]
-}
-
-interface ListItemProps {
+export interface ListItemProps {
   id: string;
   value: string;
   isChecked: boolean;
@@ -17,7 +12,6 @@ interface ListItemProps {
   onDeleteClick?: () => void;
   onInputChange?: () => void;
 }
-
 
 const ToDoCard = () => {
 
