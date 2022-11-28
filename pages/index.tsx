@@ -7,7 +7,6 @@ import TopBar from '../components/top-bar'
 // import { connectToDatabase } from '../lib/mongodb'
 import styles from '../styles/Home.module.css'
 import TextareaAutosize from 'react-textarea-autosize';
-import ToDoCard, { ListItemProps } from '../components/to-do-card'
 import React from 'react'
 import Link from 'next/link'
 import ListItemTop from '../components/title-item'
