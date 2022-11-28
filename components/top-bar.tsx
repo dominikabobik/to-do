@@ -4,8 +4,9 @@ import styles from '../styles/TopBar.module.css'
 import { IconContext } from 'react-icons'
 import { IoIosArrowBack, IoIosMore } from 'react-icons/io'
 import Link from 'next/link'
+import { FC } from 'react'
 
-const TopBar: NextPage = () => {
+const TopBar: FC = () => {
   return (
     <div className={styles.container}>
       <a href='/'>
@@ -16,7 +17,6 @@ const TopBar: NextPage = () => {
       <IconContext.Provider value={{ className: "menu" }}>
         <IoIosMore></IoIosMore>
       </IconContext.Provider>
-
     </div>
   )
 }

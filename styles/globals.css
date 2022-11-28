@@ -31,3 +31,9 @@ a {
 .delete {
   font-size: 20px;
 }
+
+.add {
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+}

@@ -1,85 +1,59 @@
 import styles from '../styles/Todo.module.css'
-import { useState } from 'react';
-import { AiOutlineDelete } from 'react-icons/ai'
-import { IconContext } from 'react-icons';
+import { FC, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
+import ListItem from './list-item';
+import { GetServerSideProps } from 'next';
+import ListItemTop from './title-item';
+import { ItemPageProps } from '../pages/[id]';
+import { ListItemProps, randomId } from '../types/types';
+import { IoAdd } from 'react-icons/io5'
 
-export interface ListItemProps {
-  id: string;
-  value: string;
-  isChecked: boolean;
-  onClick?: () => void;
-  onDeleteClick?: () => void;
-  onInputChange?: () => void;
-}
+const ToDoCard: FC<ItemPageProps> = (props) => {
 
-const ToDoCard = () => {
+  console.log("From ToDo: ", props.data)
+  const [items, setItems] = useState<ListItemProps[]>(props.data)
+  const [listName, setListName] = useState('')
 
-  const [items, setItems] = useState<ListItemProps[]>([])
-  const [listName, setListName] = useState('Title')
-
-  // Function to generate random Ids
-  function randomId(): string {
-    return Math.random().toString(36).slice(2, 7)
-  }
+  const listId = props.id
 
   const onListNameChangeHandler = (event: any) => {
     setListName(event.target.value);
   }
 
-  const ListItem = (props: ListItemProps) => {
-    const [value, setValue] = useState(props.value)
-
-    const onValueChangeHandler = (event: any) => {
-      setValue(event.target.value);
-      // Update global data list
-      items.forEach(e => {
-        if (e.id === props.id) {
-          e.value = event.target.value;
-        }
-      })
-      console.log("setting value")
-      setItems(items)
-    };
-
-    return (
-      <div className={styles.listItem + (props.isChecked ? (" " + styles.isListItemChecked) : "")}>
-        <button className={styles.listItemButton} onClick={props.onClick}></button>
-        <TextareaAutosize value={value} onChange={onValueChangeHandler}
-          className={styles.listItemText + (props.isChecked ? (" " + styles.isListItemTextChecked) : "")}>
-        </TextareaAutosize>
-        <button className={styles.deleteButton} onClick={props.onDeleteClick}>
-          <IconContext.Provider value={{ className: "delete" }}>
-            <AiOutlineDelete></AiOutlineDelete>
-          </IconContext.Provider>
-        </button>
-      </div>
-    )
-  }
-
   return (
     <div className={styles.wrapper}>
       <div className={styles.content}>
+        <div className={styles.title}>{props.title}</div>
         <div className={styles.topWrapper}>
-          <TextareaAutosize
+          <input
             value={listName}
             onChange={onListNameChangeHandler}
-            className={styles.listName}>
-          </TextareaAutosize>
+            className={styles.listName}
+          />
           <button
             className={styles.addButton}
-            onClick={() => {
+            onClick={async () => {
+              const newId = randomId()
               items.push({
-                id: randomId(),
-                value: '',
+                id: newId,
+                listId: listId,
+                value: listName,
                 isChecked: false,
               })
               setItems([...items])
-            }}>+
+              const res = await fetch("http://localhost:3000/api/item", {
+                method: "POST",
+                body: JSON.stringify({
+                  id: newId,
+                  listId: listId,
+                  value: listName,
+                  isChecked: false,
+                })
+              })
+            }}>
+            <IoAdd />
           </button>
         </div>
-
-
         <ul className={styles.list}>
           {items.sort((a, b) => {
             const aChecked = a ? 1 : -1
@@ -91,23 +65,25 @@ const ToDoCard = () => {
               value={item.value}
               isChecked={item.isChecked}
               key={i + item.value}
-              onClick={() => {
-                for (const i of items) {
-                  if (i.id === item.id) {
-                    i.isChecked = !i.isChecked
-                    setItems([...items])
-                    return
-                  }
-                }
-              }} onDeleteClick={() => {
-                items.splice(i, 1)
-                setItems([...items])
-              }} onInputChange={() => {
+              listId={listId}
+            // onClick={() => {
+            //   for (const i of items) {
+            //     if (i.id === item.id) {
+            //       i.isChecked = !i.isChecked
+            //       setItems([...items])
+            //       return
+            //     }
+            //   }
+            // }} onDeleteClick={() => {
+            //   items.splice(i, 1)
+            //   setItems([...items])
+            // }} onInputChange={() => {
 
-              }} />
+            // }} 
+            />
           )}</ul>
       </div>
-    </div>
+    </div >
   )
 }
 

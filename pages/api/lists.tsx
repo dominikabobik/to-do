@@ -1,20 +1,18 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import clientPromise from "../../lib/mongodb";
 
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
-export default async function handler(req:NextApiRequest, res:NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // switch the methods
     switch (req.method) {
         case 'GET': {
             return getLists(req, res);
         }
-
         case 'POST': {
             return addList(req, res);
         }
-
         case 'DELETE': {
             return deleteList(req, res);
         }
@@ -22,23 +20,23 @@ export default async function handler(req:NextApiRequest, res:NextApiResponse) {
 }
 
 // Getting all lists
-async function getLists(req: NextApiRequest, res:NextApiResponse) {
+async function getLists(req: NextApiRequest, res: NextApiResponse) {
     try {
-        let { db } = await connectToDatabase();
-      let lists = await db
-        .collection('lists')
-        .find({})
-        .toArray();      
-      
-      console.log(lists)
-      return res.status(200).json(lists)
-      /*
+        const client = await clientPromise;
+        const db = client.db(process.env.MONGODB_DB);
+        let lists = await db
+            .collection('lists')
+            .find({})
+            .toArray();
+
+        console.log(lists)
+        //return res.status(200).json(lists)
         return res.json({
             message: JSON.parse(JSON.stringify(lists)),
             success: true,
         });
-      */
-    } catch (error:any) {
+
+    } catch (error: any) {
         return res.json({
             message: new Error(error).message,
             success: false,
@@ -47,15 +45,17 @@ async function getLists(req: NextApiRequest, res:NextApiResponse) {
 }
 
 // Adding a new list
-async function addList(req: NextApiRequest, res:NextApiResponse) {
+async function addList(req: NextApiRequest, res: NextApiResponse) {
     try {
-        let { db } = await connectToDatabase();
+        const client = await clientPromise;
+        const db = client.db(process.env.MONGODB_DB);
         await db.collection('lists').insertOne(JSON.parse(req.body));
+
         return res.json({
             message: 'List added successfully',
             success: true,
         });
-    } catch (error:any) {
+    } catch (error: any) {
         return res.json({
             message: new Error(error).message,
             success: false,
@@ -64,19 +64,21 @@ async function addList(req: NextApiRequest, res:NextApiResponse) {
 }
 
 // deleting a list
-async function deleteList(req: NextApiRequest, res:NextApiResponse) {
+async function deleteList(req: NextApiRequest, res: NextApiResponse) {
     try {
-        let { db } = await connectToDatabase();
+        const client = await clientPromise;
+        const db = client.db(process.env.MONGODB_DB);
 
+        console.log("Deleting id: ", JSON.parse(req.body).selfId)
         await db.collection('lists').deleteOne({
-            _id: new ObjectId(req.body),
+            id: JSON.parse(req.body).selfId,
         });
 
         return res.json({
             message: 'List deleted successfully',
             success: true,
         });
-    } catch (error:any) {
+    } catch (error: any) {
         return res.json({
             message: new Error(error).message,
             success: false,

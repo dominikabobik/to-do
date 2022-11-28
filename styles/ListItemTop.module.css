@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+}
+
+.listItem {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+.listItemText {
+  color: black;
+  word-break: break-all;
+  white-space: normal;
+  padding: 20px;
+  font-size: 20px;
+  overflow: hidden;
+  resize: none;
+  border: none;
+}
+
+.listItemText:focus {
+    outline: none !important;
+    border:1px solid greenyellow;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+
+.deleteButton {
+  height: 20px;
+  align-self: center;
+  margin-left: auto;
+  background-color: white;
+  border: none;
+}
+
+.deleteButton:hover {
+  transform: scale(1.1);
+}
