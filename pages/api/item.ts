@@ -16,6 +16,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         case 'DELETE': {
             return deleteItem(req, res);
         }
+        case 'PUT': {
+            return putItem(req, res)    
+        }
     }
 }
 
@@ -78,6 +81,30 @@ async function deleteItem(req: NextApiRequest, res: NextApiResponse) {
             message: 'List deleted successfully',
             success: true,
         });
+    } catch (error: any) {
+        return res.json({
+            message: new Error(error).message,
+            success: false,
+        });
+    }
+}
+
+// Updating existing record
+async function putItem(req: NextApiRequest, res: NextApiResponse) {
+    try {
+        const client = await clientPromise;
+        const db = client.db(process.env.MONGODB_DB);
+
+        console.log("Updating id: ", JSON.parse(req.body).selfId)
+        let ret = await db.collection('items')
+            .updateOne({ "id": JSON.parse(req.body).selfId },
+                { $set: { "isChecked": JSON.parse(req.body).isChecked } })
+        console.log(ret)
+        
+        return res.json({
+            message: 'Item updated successfully',
+            success: true,
+    });
     } catch (error: any) {
         return res.json({
             message: new Error(error).message,

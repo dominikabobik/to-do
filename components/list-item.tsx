@@ -18,7 +18,7 @@ const ListItem: FC<ListItemProps> = (props) => {
   const selfId: string = props.id
 
   const onDeleteClick = async () => {
-    console.log("deleting value")
+    props.onDeleteClick()
     // Update database
     let res = await fetch("http://localhost:3000/api/item", {
       method: "DELETE",
@@ -27,8 +27,8 @@ const ListItem: FC<ListItemProps> = (props) => {
     console.log(res)
   }
   return (
-    <div className={styles.listItem + (props.isChecked ? (" " + styles.isListItemChecked) : "")}>
-      <button className={styles.listItemButton}></button>
+    <div className={styles.container + (props.isChecked ? (" " + styles.isListItemChecked) : "")}>
+      <button className={styles.listItemButton} onClick={props.onClick}></button>
       <TextareaAutosize value={value} onChange={onValueChangeHandler}
         className={styles.listItemText + (props.isChecked ? (" " + styles.isListItemTextChecked) : "")}>
       </TextareaAutosize>

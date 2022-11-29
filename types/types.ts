@@ -33,4 +33,13 @@ export interface ListItemProps {
   listId: string;
   value: string;
   isChecked: boolean;
+  onDeleteClick: () => void;
+  onClick: () => void;
+}
+
+export interface ListItemData{
+  id: string;
+  listId: string;
+  value: string;
+  isChecked: boolean;
 }

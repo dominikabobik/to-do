@@ -1,18 +1,18 @@
-
-.listItem {
-  width: 100%;
-  background-color: white;
+.container {
   display: flex;
-  gap: 10px;
-  padding: 8px;
+  flex-direction: row;
   border-bottom: 1px solid #ddd;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .listItemText {
   color: black;
   word-break: break-all;
   white-space: normal;
-  padding: 0.5em;
+  padding: 20px;
+  font-size: 20px;
   overflow: hidden;
   resize: none;
   border: none;
@@ -24,7 +24,6 @@
     border-radius: 5px;
     overflow: hidden;
 }
-
 
 .listItemButton {
   height: 20px;
@@ -41,7 +40,6 @@
   opacity: 50%;
   border: none;
 }
-
 
 .isListItemTextChecked{
   text-decoration:line-through;
@@ -60,6 +58,7 @@
   align-self: center;
   background-color: white;
   border: none;
+  margin-left: auto;
 }
 
 .deleteButton:hover {

@@ -1,7 +1,7 @@
 import { FC, useState } from "react"
 import { IconContext } from "react-icons"
 import { AiOutlineDelete } from "react-icons/ai"
-import styles from '../styles/ListItemTop.module.css'
+import styles from '../styles/TitleItem.module.css'
 import { useGlobalContext } from '../pages/index'
 import Link from "next/link"
 import { globalContextType, TitleItemData } from "../types/types"

@@ -47,7 +47,13 @@ export const getServerSideProps: GetServerSideProps<ItemPageProps> = async (cont
 const ItemPage: NextPage<ItemPageProps> = (props) => {
   console.log({ props })
   return (
-    <div className={styles.wrapper}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      overflow: 'hidden',
+      height: '100vh'
+    }}>
       <TopBar />
       <ToDoCard {...props} />
     </div>
