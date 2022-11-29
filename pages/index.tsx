@@ -41,7 +41,7 @@ export const Home: NextPage<MainProps> = (props) => {
                 const newId = randomId()
                 setTitlesList([{ id: newId, title: value }, ...titlesList])
                 setValue('')
-                let res = await fetch("http://localhost:3000/api/lists", {
+                let res = await fetch("https://to-do-five-topaz.vercel.app/api/lists", {
                   method: "POST",
                   body: JSON.stringify({ id: newId, title: value }),
                 })
@@ -66,7 +66,7 @@ export const Home: NextPage<MainProps> = (props) => {
 
 export async function getServerSideProps(context: any) {
   try {
-    let res = await fetch("http://localhost:3000/api/lists", {
+    let res = await fetch("https://to-do-five-topaz.vercel.app/api/lists", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

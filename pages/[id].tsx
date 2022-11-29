@@ -15,14 +15,14 @@ export const getServerSideProps: GetServerSideProps<ItemPageProps> = async (cont
   const titleListId: any = context.params?.id
   console.log("Going to list: ", titleListId)
   // Get list title
-  let res = await fetch('http://localhost:3000/api/lists', {
+  let res = await fetch('https://to-do-five-topaz.vercel.app/api/lists', {
     method: 'GET'
   })
   let items = await res.json()
   let e = items.message.find((e: { id: ParsedUrlQuery | undefined }) => e.id === titleListId)
 
   // Get all the items in the title list
-  let resItem = await fetch('http://localhost:3000/api/item', {
+  let resItem = await fetch('https://to-do-five-topaz.vercel.app/api/item', {
     method: 'GET'
   })
 

@@ -37,7 +37,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
               isChecked: false,
             })
             setItems([...items])
-            const res = await fetch("http://localhost:3000/api/item", {
+            const res = await fetch("https://to-do-five-topaz.vercel.app/api/item", {
               method: "POST",
               body: JSON.stringify({
                 id: newId,
@@ -69,7 +69,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
                     i.isChecked = !i.isChecked
                     setItems([...items])
                     // update database
-                    const res = await fetch("http://localhost:3000/api/item", {
+                    const res = await fetch("https://to-do-five-topaz.vercel.app/api/item", {
                       method: 'PUT',
                       body: JSON.stringify({
                         selfId: item.id,

@@ -20,7 +20,7 @@ const ListItem: FC<ListItemProps> = (props) => {
   const onDeleteClick = async () => {
     props.onDeleteClick()
     // Update database
-    let res = await fetch("http://localhost:3000/api/item", {
+    let res = await fetch("https://to-do-five-topaz.vercel.app/api/item", {
       method: "DELETE",
       body: JSON.stringify({ selfId }),
     })
