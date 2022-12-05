@@ -2,6 +2,7 @@ import { Router } from 'express'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { ChangeEvent, ChangeEventHandler, SetStateAction, useCallback, useState } from 'react'
+import { baseUrl } from '.'
 import styles from "../styles/Signup.module.css"
 
 interface User {
@@ -32,7 +33,7 @@ const Signup: NextPage = () => {
 
   async function onSignupClickHandler(object: User) {
     console.log("click handler")
-    let res = await fetch('http://localhost:3000/api/signup', {
+    let res = await fetch(`${baseUrl()}api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

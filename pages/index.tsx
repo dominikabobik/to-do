@@ -11,6 +11,10 @@ import { getCookie } from 'cookies-next'
 import { Router } from 'express'
 import { useRouter } from 'next/router'
 
+export function baseUrl(): string {
+  if (process.env.NODE_ENV === "production") return "https://https://to-do-five-topaz.vercel.app/";
+  else return "http://localhost:3000/";
+}
 
 interface MainProps {
   isConnected: boolean;
@@ -36,7 +40,7 @@ export const Home: NextPage<MainProps> = (props) => {
         setTitlesList([{ id: newId, title: value, }, ...titlesList])
         setValue('')
         console.log(getCookie('id')?.toString())
-        let res = await fetch("http://localhost:3000/api/lists", {
+        let res = await fetch(`${baseUrl()}api/lists`, {
           method: "POST",
           body: JSON.stringify({ id: newId, title: value, userId: getCookie('id') }),
         })
@@ -65,7 +69,7 @@ export const Home: NextPage<MainProps> = (props) => {
                 setTitlesList([{ id: newId, title: value, }, ...titlesList])
                 setValue('')
                 console.log(getCookie('id')?.toString())
-                let res = await fetch("http://localhost:3000/api/lists", {
+                let res = await fetch(`${baseUrl()}api/lists`, {
                   method: "POST",
                   body: JSON.stringify({ id: newId, title: value, userId: getCookie('id') }),
                 })
@@ -105,7 +109,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
   try {
 
-    let res = await fetch("http://localhost:3000/api/lists", {
+    let res = await fetch(`${baseUrl()}api/lists`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

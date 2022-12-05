@@ -2,6 +2,7 @@ import { setCookie } from 'cookies-next'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { baseUrl } from '.'
 import styles from "../styles/Login.module.css"
 
 interface User {
@@ -26,7 +27,7 @@ const Login: NextPage = () => {
 
   const onLoginHandler = useCallback(async (object: User) => {
     console.log(object)
-    await (fetch('http://localhost:3000/api/signin', {
+    await (fetch(`${baseUrl()}api/signin`, {
       method: 'POST',
       body: JSON.stringify(object)
     })).then(val => {
