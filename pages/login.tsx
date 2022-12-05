@@ -59,12 +59,15 @@ const Login: NextPage = () => {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.container}>
+        ToDo
+      </div>
       <div className={styles.content}>
         <div>{error}</div>
         <input className={styles.name} placeholder='Name' onChange={onNameChangeHandler} value={name}></input>
         <input className={styles.password} placeholder='Password' onChange={onPasswordChangeHandler} value={password}></input>
         <button className={styles.button} onClick={() => onLoginHandler({ name, password })}>Login</button>
-        <a href={'/sign-up'} style={{ textDecoration: 'underline' }}>Or signup</a>
+        <a href={'/sign-up'} style={{ textDecoration: 'underline', color: '#464655' }}>Or signup</a>
       </div>
     </div>
   )

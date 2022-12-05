@@ -67,6 +67,9 @@ const Signup: NextPage = () => {
 
   return (
     <div className={styles.wrapper}>
+      <div className={styles.container}>
+        ToDo
+      </div>
       <div className={styles.content}>
         <div>{error}</div>
         <input className={styles.name} placeholder='First name' value={name} onChange={onNameChangeHandler}></input>
@@ -75,7 +78,7 @@ const Signup: NextPage = () => {
         <button className={styles.button} onClick={async () => {
           onSignupClickHandler({ name, email, password })
         }}>Sign Up!</button>
-        <a href={'/login'} style={{ textDecoration: 'underline' }}>Or login</a>
+        <a href={'/login'} style={{ textDecoration: 'underline', color: '#464655' }}>Or login</a>
       </div>
     </div>
   )

@@ -19,14 +19,10 @@ a {
 
 .backArrow{
   font-size: 40px;
-  left: 0;
-  position: fixed;
 }
 
 .menu {
   font-size: 40px;
-  right: 0;
-  position: fixed;
 }
 
 .delete {

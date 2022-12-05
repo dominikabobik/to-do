@@ -16,11 +16,12 @@
   overflow: hidden;
   resize: none;
   border: none;
+  margin: 10px;
 }
 
 .listItemText:focus {
     outline: none !important;
-    border:1px solid greenyellow;
+    border:1px solid rgba(255, 195, 238, 0.772);
     border-radius: 5px;
     overflow: hidden;
 }

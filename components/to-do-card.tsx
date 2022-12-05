@@ -45,7 +45,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
     return () => {
       document.removeEventListener('keydown', enterHandler);
     };
-  }, [items, listId, listName]);
+  }, [handleItemAdd, items, listId, listName]);
 
   const onListNameChangeHandler = (event: any) => {
     setListName(event.target.value);
@@ -59,6 +59,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
           value={listName}
           onChange={onListNameChangeHandler}
           className={styles.listName}
+          placeholder='New Item'
         />
         <button
           className={styles.addButton}
@@ -89,7 +90,8 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
                       method: 'PUT',
                       body: JSON.stringify({
                         selfId: item.id,
-                        isChecked: i.isChecked
+                        isChecked: i.isChecked,
+                        value: i.value
                       })
                     })
                     return

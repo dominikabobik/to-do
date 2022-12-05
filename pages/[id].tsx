@@ -16,6 +16,7 @@ export const getServerSideProps: GetServerSideProps<ItemPageProps> = async (cont
   const titleListId: any = context.params?.id
   console.log("Cookie: ", context.req?.headers.cookie)
   console.log("Going to list: ", titleListId)
+
   // Get list title
   let res = await fetch(`${baseUrl()}api/lists`, {
     method: 'GET',
@@ -30,13 +31,13 @@ export const getServerSideProps: GetServerSideProps<ItemPageProps> = async (cont
   let e = items.message.find((e: { id: ParsedUrlQuery | undefined }) => e.id === titleListId)
   console.log(e)
   // Get all the items in the title list
-  let resItem = await fetch(`${baseUrl()}api/item`, {
-    method: 'GET'
+  let resItem = await fetch(`${baseUrl()}api/item-list`, {
+    method: 'POST',
+    body: JSON.stringify({ listId: titleListId })
   })
 
   console.log("List title: ", e.title)
   let data = await resItem.json()
-  console.log("data:\n", data)
   let i: any[] = [];
   if (data.message.length !== 0) {
     i = data.message.filter((e: any) => e.listId === titleListId)

@@ -98,7 +98,9 @@ async function putItem(req: NextApiRequest, res: NextApiResponse) {
         console.log("Updating id: ", JSON.parse(req.body).selfId)
         let ret = await db.collection('items')
             .updateOne({ "id": JSON.parse(req.body).selfId },
-                { $set: { "isChecked": JSON.parse(req.body).isChecked } })
+                {$set: {
+                        "isChecked": JSON.parse(req.body).isChecked,
+                        "value": JSON.parse(req.body).value}})
         console.log(ret)
         
         return res.json({

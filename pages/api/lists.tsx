@@ -2,9 +2,6 @@ import { getCookie, getCookies } from "cookies-next";
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
 
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const ObjectId = require('mongodb').ObjectId;
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     // switch the methods
     switch (req.method) {

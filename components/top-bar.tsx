@@ -19,14 +19,17 @@ const TopBar: FC = () => {
 
   return (
     <div className={styles.container}>
-      <a href='/'>
+      <a href='/' className={styles.arrow}>
         <IconContext.Provider value={{ className: "backArrow" }}>
           <IoIosArrowBack></IoIosArrowBack>
         </IconContext.Provider>
       </a>
-      <IconContext.Provider value={{ className: "menu" }}>
-        <FiLogOut onClick={handleLogout}></FiLogOut>
-      </IconContext.Provider>
+      <div className={styles.title}>ToDo</div>
+      <div className={styles.logout}>
+        <IconContext.Provider value={{ className: "menu" }}>
+          <FiLogOut onClick={handleLogout}></FiLogOut>
+        </IconContext.Provider>
+      </div>
     </div>
   )
 }
