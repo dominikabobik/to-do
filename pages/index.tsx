@@ -12,7 +12,7 @@ import { Router } from 'express'
 import { useRouter } from 'next/router'
 
 export function baseUrl(): string {
-  if (process.env.NODE_ENV === "production") return "https://https://to-do-five-topaz.vercel.app/";
+  if (process.env.NODE_ENV === "production") return "https://to-do-five-topaz.vercel.app/";
   else return "http://localhost:3000/";
 }
 
