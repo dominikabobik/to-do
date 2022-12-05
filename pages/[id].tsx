@@ -4,6 +4,7 @@ import ToDoCard from '../components/to-do-card'
 import styles from '../styles/Todo.module.css'
 import { ParsedUrlQuery } from 'querystring'
 import { ListItemProps } from '../types/types'
+import { baseUrl } from '.'
 
 export interface ItemPageProps {
   id: string,
@@ -13,16 +14,23 @@ export interface ItemPageProps {
 
 export const getServerSideProps: GetServerSideProps<ItemPageProps> = async (context) => {
   const titleListId: any = context.params?.id
+  console.log("Cookie: ", context.req?.headers.cookie)
   console.log("Going to list: ", titleListId)
   // Get list title
-  let res = await fetch('https://to-do-five-topaz.vercel.app/api/lists', {
-    method: 'GET'
+  let res = await fetch(`${baseUrl()}api/lists`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${context.req?.headers.cookie?.split("=")[1]}`
+    }
   })
-  let items = await res.json()
-  let e = items.message.find((e: { id: ParsedUrlQuery | undefined }) => e.id === titleListId)
 
+  let items = await res.json()
+  console.log("ITEMS: ", items)
+  let e = items.message.find((e: { id: ParsedUrlQuery | undefined }) => e.id === titleListId)
+  console.log(e)
   // Get all the items in the title list
-  let resItem = await fetch('https://to-do-five-topaz.vercel.app/api/item', {
+  let resItem = await fetch(`${baseUrl()}api/item`, {
     method: 'GET'
   })
 

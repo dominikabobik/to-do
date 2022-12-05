@@ -1,10 +1,11 @@
 import styles from '../styles/Todo.module.css'
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { ItemPageProps } from '../pages/[id]';
 import { ListItemData, randomId } from '../types/types';
 import { IoAdd } from 'react-icons/io5'
 import ListItem from './list-item';
+import { baseUrl } from '../pages';
 
 const ToDoCard: FC<ItemPageProps> = (props) => {
 
@@ -13,28 +14,31 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
 
   const listId = props.id
 
+  const handleItemAdd = useCallback(async () => {
+    const newId = randomId()
+    items.push({
+      id: newId,
+      listId: listId,
+      value: listName,
+      isChecked: false,
+    })
+    setItems([...items])
+    const res = await fetch(`${baseUrl()}api/item`, {
+      method: "POST",
+      body: JSON.stringify({
+        id: newId,
+        listId: listId,
+        value: listName,
+        isChecked: false,
+      })
+    }).then(() => setListName(''))
+  }, [items, listId, listName])
+
   useEffect(() => {
     const enterHandler = async (event: KeyboardEvent) => {
       console.log('User pressed: ', event.key);
       if (event.key === 'Enter') {
-        const newId = randomId()
-        items.push({
-          id: newId,
-          listId: listId,
-          value: listName,
-          isChecked: false,
-        })
-        setItems([...items])
-        const res = await fetch("http://localhost:3000/api/item", {
-          method: "POST",
-          body: JSON.stringify({
-            id: newId,
-            listId: listId,
-            value: listName,
-            isChecked: false,
-          })
-        })
-        setListName('')
+        handleItemAdd()
       }
     };
     document.addEventListener('keydown', enterHandler);
@@ -58,26 +62,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
         />
         <button
           className={styles.addButton}
-          onClick={async () => {
-            const newId = randomId()
-            items.push({
-              id: newId,
-              listId: listId,
-              value: listName,
-              isChecked: false,
-            })
-            setItems([...items])
-            const res = await fetch("http://localhost:3000/api/item", {
-              method: "POST",
-              body: JSON.stringify({
-                id: newId,
-                listId: listId,
-                value: listName,
-                isChecked: false,
-              })
-            })
-            setListName('')
-          }}>
+          onClick={handleItemAdd}>
           <IoAdd />
         </button>
       </div>
@@ -100,7 +85,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
                     i.isChecked = !i.isChecked
                     setItems([...items])
                     // update database
-                    const res = await fetch("https://to-do-five-topaz.vercel.app/api/item", {
+                    const res = await fetch(`${baseUrl()}api/item`, {
                       method: 'PUT',
                       body: JSON.stringify({
                         selfId: item.id,

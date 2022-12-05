@@ -38,12 +38,11 @@ export const Home: NextPage<MainProps> = (props) => {
         if (value === '') return
         const newId = randomId()
         setTitlesList([{ id: newId, title: value, }, ...titlesList])
-        setValue('')
         console.log(getCookie('id')?.toString())
         let res = await fetch(`${baseUrl()}api/lists`, {
           method: "POST",
           body: JSON.stringify({ id: newId, title: value, userId: getCookie('id') }),
-        })
+        }).then(() => setValue(''))
       }
     };
     document.addEventListener('keydown', enterHandler);
@@ -113,7 +112,7 @@ export async function getServerSideProps(context: NextPageContext) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${context.req?.headers.cookie?.split(" ")[2].split('=')[1]}`
+        "Authorization": `Bearer ${context.req?.headers.cookie?.split("=")[1]}`
       },
 
     })

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { ChangeEvent, ChangeEventHandler, SetStateAction, useCallback, useState } from 'react'
+import { ChangeEvent, ChangeEventHandler, SetStateAction, useCallback, useEffect, useState } from 'react'
 import { baseUrl } from '.'
 import styles from "../styles/Signup.module.css"
 
@@ -31,7 +31,7 @@ const Signup: NextPage = () => {
     setPassword(event.target.value)
   }, [setPassword])
 
-  async function onSignupClickHandler(object: User) {
+  const onSignupClickHandler = useCallback(async (object: User) => {
     console.log("click handler")
     let res = await fetch(`${baseUrl()}api/signup`, {
       method: "POST",
@@ -49,7 +49,21 @@ const Signup: NextPage = () => {
           router.push('/')
         }
       })
-  }
+  }, [router])
+
+  useEffect(() => {
+    const enterHandler = async (event: KeyboardEvent) => {
+      console.log('User pressed: ', event.key);
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        onSignupClickHandler({ name, email, password })
+      }
+    };
+    document.addEventListener('keydown', enterHandler);
+    return () => {
+      document.removeEventListener('keydown', enterHandler);
+    };
+  }, [email, name, onSignupClickHandler, password])
 
   return (
     <div className={styles.wrapper}>

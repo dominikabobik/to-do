@@ -14,6 +14,11 @@
   overflow: hidden;
   resize: none;
   border: none;
+  width: 100%;
+}
+
+.listItemText:hover{
+  cursor: pointer;
 }
 
 .listItemText:focus {

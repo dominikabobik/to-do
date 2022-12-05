@@ -2,7 +2,7 @@ import { FC, useState } from "react"
 import { IconContext } from "react-icons"
 import { AiOutlineDelete } from "react-icons/ai"
 import styles from '../styles/TitleItem.module.css'
-import { useGlobalContext } from '../pages/index'
+import { baseUrl, useGlobalContext } from '../pages/index'
 import Link from "next/link"
 import { globalContextType, TitleItemData } from "../types/types"
 
@@ -21,7 +21,7 @@ const TitleItem: FC<TitleItemData> = props => {
     console.log("deleting value")
     global.setTitlesList([...global.titlesList])
     // Update database
-    let res = await fetch("http://localhost:3000/api/lists", {
+    let res = await fetch(`${baseUrl()}api/lists`, {
       method: "DELETE",
       body: JSON.stringify({ selfId }),
     })

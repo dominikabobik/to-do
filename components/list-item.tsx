@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import TextareaAutosize from 'react-textarea-autosize';
 import styles from '../styles/ListItem.module.css'
 import { globalContextType, ListItemProps } from "../types/types";
-import { useGlobalContext } from "../pages";
+import { baseUrl, useGlobalContext } from "../pages";
 
 const ListItem: FC<ListItemProps> = (props) => {
 
@@ -20,7 +20,7 @@ const ListItem: FC<ListItemProps> = (props) => {
   const onDeleteClick = async () => {
     props.onDeleteClick()
     // Update database
-    let res = await fetch("https://to-do-five-topaz.vercel.app/api/item", {
+    let res = await fetch(`${baseUrl()}api/item`, {
       method: "DELETE",
       body: JSON.stringify({ selfId }),
     })
