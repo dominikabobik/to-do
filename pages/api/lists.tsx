@@ -1,3 +1,4 @@
+import { getCookie, getCookies } from "cookies-next";
 import { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "../../lib/mongodb";
 
@@ -22,14 +23,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 // Getting all lists
 async function getLists(req: NextApiRequest, res: NextApiResponse) {
     try {
+        const authHeader = req.headers.authorization
+        const token = authHeader?.split(" ")[1];
         const client = await clientPromise;
         const db = client.db(process.env.MONGODB_DB);
+        console.log("---Token: ", token)
+        console.log(authHeader)
         let lists = await db
             .collection('lists')
-            .find({})
+            .find({ userId: token })
             .toArray();
 
-        console.log(lists)
+        console.log("ALL LISTS:", lists)
         //return res.status(200).json(lists)
         return res.json({
             message: JSON.parse(JSON.stringify(lists)),

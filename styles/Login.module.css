@@ -18,7 +18,7 @@
   height: 80%;
 }
 
-.email, .password {
+.name, .password {
   align-self: center;
   border-radius: 10px;
   border: 1px solid #ddd;
@@ -38,4 +38,8 @@
   color: #b7b6c1;
   font-weight: bold;
   max-width: 200px;
+}
+
+.button:hover {
+  box-shadow: 0 0 1px 5px #ddd;
 }

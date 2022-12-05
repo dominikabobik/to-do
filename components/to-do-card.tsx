@@ -1,5 +1,5 @@
 import styles from '../styles/Todo.module.css'
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import TextareaAutosize from 'react-textarea-autosize';
 import { ItemPageProps } from '../pages/[id]';
 import { ListItemData, randomId } from '../types/types';
@@ -12,6 +12,36 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
   const [listName, setListName] = useState('')
 
   const listId = props.id
+
+  useEffect(() => {
+    const enterHandler = async (event: KeyboardEvent) => {
+      console.log('User pressed: ', event.key);
+      if (event.key === 'Enter') {
+        const newId = randomId()
+        items.push({
+          id: newId,
+          listId: listId,
+          value: listName,
+          isChecked: false,
+        })
+        setItems([...items])
+        const res = await fetch("http://localhost:3000/api/item", {
+          method: "POST",
+          body: JSON.stringify({
+            id: newId,
+            listId: listId,
+            value: listName,
+            isChecked: false,
+          })
+        })
+        setListName('')
+      }
+    };
+    document.addEventListener('keydown', enterHandler);
+    return () => {
+      document.removeEventListener('keydown', enterHandler);
+    };
+  }, [items, listId, listName]);
 
   const onListNameChangeHandler = (event: any) => {
     setListName(event.target.value);
@@ -37,7 +67,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
               isChecked: false,
             })
             setItems([...items])
-            const res = await fetch("https://to-do-five-topaz.vercel.app/api/item", {
+            const res = await fetch("http://localhost:3000/api/item", {
               method: "POST",
               body: JSON.stringify({
                 id: newId,
@@ -46,6 +76,7 @@ const ToDoCard: FC<ItemPageProps> = (props) => {
                 isChecked: false,
               })
             })
+            setListName('')
           }}>
           <IoAdd />
         </button>
